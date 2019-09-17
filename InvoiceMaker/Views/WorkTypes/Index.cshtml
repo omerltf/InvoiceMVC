@@ -1,0 +1,28 @@
+﻿@model List<InvoiceMaker.Models.WorkType>
+
+<h1>Work Types</h1>
+
+<p>
+    @Html.ActionLink("Create a work type", "Create", new {}, new {@class="pure-button pure-button-primary"})
+</p>
+
+<table class="pure-table pure-table-bordered">
+    <thead>
+        <tr>
+            <th>Work Type Name</th>
+            <th>Rate ($/hr)</th>
+            <th></th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var type in Model)
+        {
+            <tr>
+                <td>@type.Name</td>
+                <td>@type.Rate.ToString("c2")</td>
+                <td>@Html.ActionLink("Edit","Edit", new { id = type.Id })</td>
+            </tr>
+        }
+    </tbody>
+</table>

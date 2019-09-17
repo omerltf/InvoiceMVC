@@ -1,0 +1,39 @@
+﻿@model InvoiceMaker.FormModels.EditWorkDoneView
+
+<h1>Edit Work Done</h1>
+
+@using (Html.BeginForm("Edit", "WorkDone", FormMethod.Post, new { @class = "pure-form pure-form-aligned" }))
+{
+    @Html.AntiForgeryToken()
+
+    <fieldset>
+        <div class="pure-control-group">
+            @Html.LabelFor(model => model.ClientId)
+            @Html.DropDownListFor(model => model.ClientId, Model.ClientSelectListItems)
+            @Html.ValidationMessageFor(model => model.ClientId, "", new { @class = "pure-form-message-inline" })
+        </div>
+
+        <div class="pure-control-group">
+            @Html.LabelFor(model => model.WorkTypeId)
+            @Html.DropDownListFor(model => model.WorkTypeId, Model.WorkTypeSelectListItems)
+            @Html.ValidationMessageFor(model => model.WorkTypeId, "", new { @class = "pure-form-message-inline" })
+        </div>
+
+        <div class="pure-control-group">
+            @Html.LabelFor(model => model.StartedOn)
+            @Html.EditorFor(model => model.StartedOn)
+            @Html.ValidationMessageFor(model => model.StartedOn, "", new { @class = "pure-form-message-inline" }) 
+        </div>
+
+        <div class="pure-control-group">
+            @Html.LabelFor(model => model.EndedOn)
+            @Html.EditorFor(model => model.EndedOn)
+            @Html.ValidationMessageFor(model => model.EndedOn, "", new { @class = "pure-form-message-inline" })
+        </div>
+
+        <div class="pure-controls">
+            @Html.ActionLink("Cancel", "Index", new { }, new { @class = "pure-button" })
+            <button type="submit" class="pure-button button-warning">Submit</button>
+        </div>
+    </fieldset>
+}
