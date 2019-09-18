@@ -13,7 +13,6 @@ namespace InvoiceMaker.Repository
     public class ClientRepository
     {
         private Context context;
-        string connectionString;
 
         //public ClientRepository()
         //{
@@ -23,7 +22,6 @@ namespace InvoiceMaker.Repository
         public ClientRepository(Context context)
         {
             this.context = context;
-            connectionString = ConfigurationManager.ConnectionStrings["Database"].ConnectionString;
         }
 
         public Client GetById (int id)
