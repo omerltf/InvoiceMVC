@@ -1,0 +1,119 @@
+﻿@model InvoiceMaker.FormModels.EditInvoiceView
+@using InvoiceMaker.Models;
+<h1>Edit an Invoice</h1>
+
+
+@using (Html.BeginForm("Edit", "Invoices", FormMethod.Post, new { @class = "pure-form pure-form-aligned" }))
+{
+    @Html.AntiForgeryToken()
+
+    <fieldset>
+        <div class="pure-control-group">
+            @Html.LabelFor(model => model.ClientId)
+            @Html.DropDownListFor(model => model.ClientId, Model.ClientSelectListItems)
+            @Html.ValidationMessageFor(model => model.ClientId, "", new { @class = "pure-form-message-inline" })
+        </div>
+
+        <div class="pure-control-group">
+            @Html.LabelFor(model => model.InvoiceNumber)
+            @Html.EditorFor(model => model.InvoiceNumber)
+            @Html.ValidationMessageFor(model => model.InvoiceNumber, "", new { @class = "pure-form-message-inline" })
+        </div>
+
+        <div class="pure-control-group">
+            @Html.LabelFor(model => model.Status)
+            @Html.DropDownListFor(model => model.Status, EnumHelper.GetSelectList(typeof(InvoiceStatus)))            @Html.ValidationMessageFor(model => model.InvoiceNumber, "", new { @class = "pure-form-message-inline" })
+        </div>
+
+        <br />
+        <br />
+        <br />
+
+        @*@if (Model.LineItems.Count > 0)
+        {
+            <h2>Line Items</h2>
+
+            <table class="pure-table pure-table-bordered">
+                <thead>
+                    <tr>
+                        <th>Work Name</th>
+                        <th>Client Name</th>
+                        <th>Rate</th>
+                        <th>Started On</th>
+                        <th>Ended On</th>
+                        <th>Amount Due</th>
+                        <th></th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    @foreach (var item in Model.LineItems)
+                    {
+                        <tr>
+                            <td>@work.WorkType.Name</td>
+                            <td>@work.Client.Name</td>
+                            <td>@work.WorkType.Rate</td>
+                            <td>@work.StartedOn</td>
+                            <td>@work.EndedOn</td>
+                            <td>
+                                @if (work.GetTotal() > 0)
+                        {
+                                    @work.GetTotal().ToString("c2")}
+                            </td>
+                            <td>
+                                @Html.ActionLink("Add", "Edit", new { workdoneId = work.Id })
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }*@
+
+        <br />
+        <br />
+        <br />
+
+        <h1>Work Dones</h1>
+
+        <table class="pure-table pure-table-bordered">
+            <thead>
+                <tr>
+                    <th>Work Name</th>
+                    <th>Client Name</th>
+                    <th>Rate</th>
+                    <th>Started On</th>
+                    <th>Ended On</th>
+                    <th>Amount Due</th>
+                    <th></th>
+                </tr>
+            </thead>
+
+            <tbody>
+                @foreach (var work in Model.WorkDones)
+                {
+                    <tr>
+                        <td>@work.WorkType.Name</td>
+                        <td>@work.Client.Name</td>
+                        <td>@work.WorkType.Rate</td>
+                        <td>@work.StartedOn</td>
+                        <td>@work.EndedOn</td>
+                        <td>
+                            @if (work.GetTotal() > 0)
+                        {
+                            @work.GetTotal().ToString("c2")}
+                    </td>
+                    <td>
+                        @Html.ActionLink("Add", "LineItem", new { id=Model.Id, workdoneid = work.Id})
+                    </td>
+                </tr>
+                }
+            </tbody>
+        </table>
+
+
+        <div class="pure-controls">
+            @Html.ActionLink("Cancel", "Index", new { }, new { @class = "pure-button" })
+            <button type="submit" class="pure-button button-success">Submit</button>
+        </div>
+    </fieldset>
+}

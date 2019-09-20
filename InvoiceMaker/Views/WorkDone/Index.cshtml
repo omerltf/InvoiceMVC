@@ -24,9 +24,9 @@
         @foreach (var work in Model)
         {
             <tr>
-                <td>@work.WorkTypeName</td>
-                <td>@work.ClientName</td>
-                <td>@work.Rate</td>
+                <td>@work.WorkType.Name</td>
+                <td>@work.Client.Name</td>
+                <td>@work.WorkType.Rate</td>
                 <td>@work.StartedOn</td>
                 <td>@work.EndedOn</td>
                 <td>@if (work.GetTotal() > 0) {

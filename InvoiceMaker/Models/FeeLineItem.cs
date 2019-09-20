@@ -12,7 +12,10 @@ namespace InvoiceMaker.Models
         public string Description { get; private set; }
 
         public DateTimeOffset When { get; private set; }
-        
+
+        public int? InvoiceId { get; set; }
+        public Invoice Invoice { get; set; }
+
         public FeeLineItem(string description, decimal amount, DateTimeOffset when)
         {
             this.Amount = amount;

@@ -1,1 +1,33 @@
-﻿
+﻿@model List<InvoiceMaker.Models.Invoice>
+
+<h1>Invoices</h1>
+
+<p>@Html.ActionLink("Create Invoices","Create","Invoices",new { }, new { @class = "pure-menu-link" })</p>
+
+<table class="pure-table pure-table-bordered">
+    <thead>
+        <tr>
+            <th>Client Name</th>
+            <th>Invoice Status</th>
+            <th>Invoice Number</th>
+            <th>No. of Line Items</th>
+            <th>Amount Owed</th>
+            <th></th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var invoice in Model)
+        {
+            <tr>
+                <td>@invoice.client.Name</td>
+                <td>@invoice.Status</td>
+                <td>@invoice.InvoiceNumber</td>
+                <td></td>
+                <td></td>
+                @*<td>Rate.ToString("c2")</td>*@
+                <td>@Html.ActionLink("Edit", "Edit", new { id = invoice.Id })</td>
+            </tr>
+        }
+    </tbody>
+</table>

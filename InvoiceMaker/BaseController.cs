@@ -1,19 +1,22 @@
 ﻿using InvoiceMaker.Data;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
 namespace InvoiceMaker
 {
-    public class BasePage : Controller
+    public class BaseController : Controller
     {
         protected Context context;
         
-        public BasePage()
+        public BaseController()
         {
             context = new Context();
+
+            context.Database.Log = (message) => Debug.WriteLine(message);
         }
 
         private bool disposed = false;

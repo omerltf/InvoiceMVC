@@ -10,12 +10,12 @@ using static InvoiceMaker.FormModels.CreateWorkDone;
 
 namespace InvoiceMaker.Controllers
 {
-    public class WorkDoneController : Controller
+    public class WorkDoneController : BaseController
     {
         // GET: WorkDone
         public ActionResult Index()
         {
-            WorkDoneRepository repository = new WorkDoneRepository();
+            WorkDoneRepository repository = new WorkDoneRepository(context);
             List<WorkDone> worksDone = repository.GetWorkDoneList();
             return View("Index", worksDone);
         }
@@ -24,8 +24,8 @@ namespace InvoiceMaker.Controllers
         public ActionResult Create()
         {
             CreateWorkDoneView model = new CreateWorkDoneView();
-            model.Clients = new ClientRepository(null).GetClients();
-            model.WorkTypes = new WorkTypeRepository(null).GetWorkType();
+            model.Clients = new ClientRepository(context).GetClients();
+            model.WorkTypes = new WorkTypeRepository(context).GetWorkType();
             return View("Create", model);
         }
 
@@ -38,13 +38,15 @@ namespace InvoiceMaker.Controllers
             {
                 // Get the client and work type based on values submitted from
                 // the form
-                Client client = new ClientRepository(null).GetById(model.ClientId);
-                WorkType workType = new WorkTypeRepository(null).GetWorkTypeById(model.WorkTypeId);
+                Client client = new ClientRepository(context).GetById(model.ClientId);//retrieving these from the DB stores them in the current context which prevents duplicate entries
+                WorkType workType = new WorkTypeRepository(context).GetWorkTypeById(model.WorkTypeId);
 
                 // Create an instance of the work done with the client and work
                 // type
                 WorkDone workDone = new WorkDone(0, client, workType);
-                new WorkDoneRepository().Insert(workDone);
+                workDone.Client = null;
+                workDone.WorkType = null;
+                new WorkDoneRepository(context).Insert(workDone);
                 return RedirectToAction("Index");
             }
             catch { }
@@ -58,15 +60,15 @@ namespace InvoiceMaker.Controllers
             viewModel.WorkTypeId = model.WorkTypeId;
 
             // Go get the value for the drop-downs, again.
-            viewModel.Clients = new ClientRepository(null).GetClients();
-            viewModel.WorkTypes = new WorkTypeRepository(null).GetWorkType();
+            viewModel.Clients = new ClientRepository(context).GetClients();
+            viewModel.WorkTypes = new WorkTypeRepository(context).GetWorkType();
             return View("Create", viewModel);
         }
 
         //GET
         public ActionResult Edit(int id)
         {
-            WorkDoneRepository repository = new WorkDoneRepository();
+            WorkDoneRepository repository = new WorkDoneRepository(context);
             WorkDone workDone = repository.GetById(id);
             EditWorkDoneView model = new EditWorkDoneView();
 
@@ -77,8 +79,8 @@ namespace InvoiceMaker.Controllers
             model.StartedOn = workDone.StartedOn;
             model.ClientId = workDone.ClientId;
             model.WorkTypeId = workDone.WorkTypeId;
-            model.Clients = new ClientRepository(null).GetClients();
-            model.WorkTypes = new WorkTypeRepository(null).GetWorkType();
+            model.Clients = new ClientRepository(context).GetClients();
+            model.WorkTypes = new WorkTypeRepository(context).GetWorkType();
             return View("Edit", model);
         }
 
@@ -90,8 +92,8 @@ namespace InvoiceMaker.Controllers
             {
                 // Get the client and work type based on values submitted from
                 // the form
-                Client client = new ClientRepository(null).GetById(model.ClientId);
-                WorkType workType = new WorkTypeRepository(null).GetWorkTypeById(model.WorkTypeId);
+                Client client = new ClientRepository(context).GetById(model.ClientId);
+                WorkType workType = new WorkTypeRepository(context).GetWorkTypeById(model.WorkTypeId);
 
                 // Create an instance of the work done with the client and work
                 // type
@@ -100,7 +102,7 @@ namespace InvoiceMaker.Controllers
                 WorkDone workDone;
                 if (model.EndedOn.HasValue && (model.EndedOn > model.StartedOn)) { workDone = new WorkDone(id, client, workType, model.StartedOn, model.EndedOn); }
                 else { workDone = new WorkDone(id, client, workType, model.StartedOn); }
-                new WorkDoneRepository().Update(workDone);
+                new WorkDoneRepository(context).Update(workDone);
                 return RedirectToAction("Index");
             }
             catch { }
@@ -115,8 +117,8 @@ namespace InvoiceMaker.Controllers
             viewModel.WorkTypeId = model.WorkTypeId;
 
             // Go get the value for the drop-downs, again.
-            viewModel.Clients = new ClientRepository(null).GetClients();
-            viewModel.WorkTypes = new WorkTypeRepository(null).GetWorkType();
+            viewModel.Clients = new ClientRepository(context).GetClients();
+            viewModel.WorkTypes = new WorkTypeRepository(context).GetWorkType();
             return View("Edit", viewModel);
         }
     }

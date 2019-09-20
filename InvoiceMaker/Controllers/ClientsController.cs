@@ -12,14 +12,9 @@ using System.Web.Mvc;
 
 namespace InvoiceMaker.Controllers
 {
-    public class ClientsController : BasePage 
+    public class ClientsController : BaseController 
     {
-        //private Context context;
 
-        //public ClientsController()
-        //{
-        //    context = new Context();
-        //}
         //get
         public ActionResult Index()
         {
@@ -104,23 +99,5 @@ namespace InvoiceMaker.Controllers
             }
             return View("Edit", client);
         }
-        //private bool disposed = false;
-
-        //protected override void Dispose(bool disposing)
-        //{
-        //    if (disposed == true)
-        //    {
-        //        return;
-        //    }
-
-        //    if (disposing)
-        //    {
-        //        context.Dispose();
-        //    }
-
-        //    disposed = true;
-
-        //    base.Dispose(disposing);
-        //}
     }
 }

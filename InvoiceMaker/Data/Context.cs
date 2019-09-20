@@ -12,6 +12,9 @@ namespace InvoiceMaker.Data
     { 
         public DbSet<Client> Clients { get; set; }
         public DbSet<WorkType> WorkTypes { get; set; }
+        public DbSet<WorkDone> WorkDones { get; set; }
+        public DbSet<Invoice> Invoices { get; set; }
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();

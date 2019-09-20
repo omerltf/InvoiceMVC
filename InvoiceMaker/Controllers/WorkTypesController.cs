@@ -12,14 +12,9 @@ using System.Web.Mvc;
 
 namespace InvoiceMaker.Controllers
 {
-    public class WorkTypesController : BasePage
+    public class WorkTypesController : BaseController
     {
-        //private Context context;
 
-        //public WorkTypesController()
-        //{
-        //    context = new Context();
-        //}
 
         // GET: WorkType
         public ActionResult Index()
@@ -105,22 +100,5 @@ namespace InvoiceMaker.Controllers
             }
         }
 
-        //private bool disposed = false;
-        //protected override void Dispose(bool disposing)
-        //{
-        //    if (disposed == true)
-        //    {
-        //        return;
-        //    }
-
-        //    if (disposing)
-        //    {
-        //        context.Dispose();
-        //    }
-
-        //    disposed = true;
-
-        //    base.Dispose(disposing);
-        //}
     }
 }
