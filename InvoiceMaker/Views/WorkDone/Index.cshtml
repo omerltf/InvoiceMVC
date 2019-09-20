@@ -1,0 +1,40 @@
+﻿@model List<InvoiceMaker.Models.WorkDone>
+
+
+<h1>Works In Progress</h1>
+
+<p>
+    @Html.ActionLink("Add a WorkDone", "Create", new { }, new { @class = "pure-button pure-button-primary" })
+</p>
+
+<table class="pure-table pure-table-bordered">
+    <thead>
+        <tr>
+            <th>Work Name</th>
+            <th>Client Name</th>
+            <th>Rate</th>
+            <th>Started On</th>
+            <th>Ended On</th>
+            <th>Amount Due</th>
+            <th></th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var work in Model)
+        {
+            <tr>
+                <td>@work.WorkType.Name</td>
+                <td>@work.Client.Name</td>
+                <td>@work.WorkType.Rate</td>
+                <td>@work.StartedOn</td>
+                <td>@work.EndedOn</td>
+                <td>@if (work.GetTotal() > 0) {
+                @work.GetTotal().ToString("c2")}</td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { Id = work.Id })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

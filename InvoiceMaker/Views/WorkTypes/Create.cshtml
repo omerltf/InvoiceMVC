@@ -1,0 +1,28 @@
+﻿@model InvoiceMaker.FormModels.CreateWorkType
+
+<h1>Create a work type</h1>
+
+@using (Html.BeginForm("Create", "WorkTypes", FormMethod.Post, new { @class = "pure-form pure-form-aligned" }))
+{
+    @Html.AntiForgeryToken()
+
+    <fieldset>
+        <div class="pure-control-group">
+            @Html.LabelFor(model => model.WorkTypeName)
+            @Html.EditorFor(model => model.WorkTypeName)
+            @Html.ValidationMessageFor(model => model.WorkTypeName, "", new { @class = "pure-form-message-inline" })
+        </div>
+
+        <div class="pure-control-group">
+            @Html.LabelFor(model => model.Rate)
+            @Html.EditorFor(model => model.Rate)
+            @Html.ValidationMessageFor(model => model.Rate, "", new { @class = "pure-form-message-inline" })
+        </div>
+        
+        <div class="pure-controls">
+            @Html.ActionLink("Cancel", "Index", new { }, new { @class = "pure-button" })
+            <button type="submit" class="pure-button button-success">Submit</button>
+        </div>
+    </fieldset>
+
+}

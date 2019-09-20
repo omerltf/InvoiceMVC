@@ -1,0 +1,28 @@
+﻿<!doctype html>
+
+<html>
+<head>
+    <title>Invoice Maker</title>
+    <link rel="stylesheet" href="~/Content/site.css">
+</head>
+<body>
+    <div class="pure-menu pure-menu-horizontal">
+
+        <span class="pure-menu-heading">Invoice Maker</span>
+
+        <ul class="pure-menu-list">
+            <li class="pure-menu-item">
+                @Html.ActionLink("Clients", "Index", "Clients", new { }, new { @class = "pure-menu-link" })
+            </li>
+            <li class="pure-menu-item">
+                @Html.ActionLink("Work Type", "Index", "WorkTypes", new { }, new { @class = "pure-menu-link" })
+            </li>
+            <li class="pure-menu-item">@Html.ActionLink("Work Done", "Index", "WorkDone", new { }, new { @class = "pure-menu-link" })</li>
+            <li class="pure-menu-item">@Html.ActionLink("Invoices","Index","Invoices",new { }, new { @class = "pure-menu-link" })</li>
+        </ul>
+    </div>
+    <div class="render-body">
+        @RenderBody()
+    </div>
+</body>
+</html>

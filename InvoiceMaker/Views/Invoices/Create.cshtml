@@ -1,0 +1,28 @@
+﻿@model InvoiceMaker.FormModels.CreateInvoiceView
+
+<h1>Create Invoice</h1>
+
+
+@using (Html.BeginForm("Create", "Invoices", FormMethod.Post, new { @class = "pure-form pure-form-aligned" }))
+{
+    @Html.AntiForgeryToken()
+
+    <fieldset>
+        <div class="pure-control-group">
+            @Html.LabelFor(model => model.ClientId)
+            @Html.DropDownListFor(model => model.ClientId, Model.ClientSelectListItems)
+            @Html.ValidationMessageFor(model => model.ClientId, "", new { @class = "pure-form-message-inline" })
+        </div>
+
+        <div class="pure-control-group">
+            @Html.LabelFor(model => model.InvoiceNumber)
+            @Html.EditorFor(model => model.InvoiceNumber)
+            @Html.ValidationMessageFor(model => model.InvoiceNumber, "", new { @class = "pure-form-message-inline" })
+        </div>
+
+        <div class="pure-controls">
+            @Html.ActionLink("Cancel", "Index", new { }, new { @class = "pure-button" })
+            <button type="submit" class="pure-button button-success">Submit</button>
+        </div>
+    </fieldset>
+}
